@@ -43,12 +43,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20.19.0
 
-      - name: Install & build frontend
+      - name: Clean install frontend dependencies
         run: |
           cd frontend
-          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: Build frontend
+        run: |
+          cd frontend
           npm run build
 
       - name: Upload frontend artifact
