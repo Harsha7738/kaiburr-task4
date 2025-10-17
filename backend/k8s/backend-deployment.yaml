@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        iimage: kaiburr-backend:1.0
+        imagePullPolicy: Never
+
+        env:
+        - name: SPRING_DATA_MONGODB_URI
+          value: "mongodb://mongo-svc:27017/kaiburrdb"
+        ports:
+        - containerPort: 8080
